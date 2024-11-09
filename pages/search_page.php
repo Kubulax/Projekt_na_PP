@@ -1,6 +1,12 @@
-<?
-
+<?php
+    $connect = mysqli_connect("localhost", "root", "", "plantshop");
+    $query1 = "SELECT * FROM `plant_categories`";
+    $plant_categories = mysqli_query($connect, $query1);
+    $query2 = "SELECT * FROM `plants`";
+    $plants = mysqli_query($connect,$query2);
+    
 ?>
+
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -23,30 +29,42 @@
         </nav>
     </header>
     
-    <div class="container-flex">
+    <div class="container-flex mt-5">
         <div class="row">
-            <div class="col-3">
-                <ul class="list-group m-5">
-                    <li class="list-group-item">An item</li>
-                    <li class="list-group-item">A second item</li>
-                    <li class="list-group-item">A third item</li>
-                    <li class="list-group-item">A fourth item</li>
-                    <li class="list-group-item">And a fifth one</li>
+            <div class="col-4">
+                <ul class="list-group m-5 brb-0">
+                    <li class="list-group-item">
+                        <p class="fs-3 text-center"> Filtry</p>
+                    </li>
+                    <li class="list-group-item"> 
+                        <div class="d-flex flex-wrap">
+                            <?php
+                                while($row = $plant_categories->fetch_array()){
+                                    echo "<span class='badge text-bg-none border border-2 text-black m-1 fs-5'>". $row['name'] ."</span>";
+                                }
+                            ?>
+                        </div>
+                    </li>
+                   
                 </ul>
             </div>
-            <div class="col-8 d-flex align-items-start flex-wrap">
+            <div class="col-8 flex-wrap d-flex">
                 <?php
-                for($i = 0;$i<20;$i++){
+                while($row = $plants->fetch_array()){
                     ?>
                     <!-- template -->
-                <div class="card m-2" style="width: 18rem;">
-                    <img src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    <div class="col-lg-3 col-md-4 col-sm-6 m-2">
+                        <a href="plantView_page.php?id=<?php echo $row['id']; ?>" class="text-decoration-none text-dark">
+                            <div class="card shadow-sm">
+                                <img src="../images/<?php echo $row['image']; ?>" class="card-img-top" alt="Plant image" style="width: 100%; height: 200px; object-fit: cover;">
+                                <div class="card-body">
+                                    <h5 class="card-title"><?php echo htmlspecialchars($row['name']); ?></h5>
+                                    <p class="card-text text-truncate" style="max-width: 100%;"><?php echo htmlspecialchars($row['description']); ?></p>
+                                    <span class="text-success font-weight-bold"><?php echo number_format($row['price'], 2, ',', ' '); ?> PLN</span>
+                                </div>
+                            </div>
+                        </a>
                     </div>
-                </div>
                 <!-- template -->
                     <?php
                 }
@@ -60,5 +78,6 @@
     </footer>
 
     <script src="../js/script.js"></script>
+    
 </body>
 </html>
