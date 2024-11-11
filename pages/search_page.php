@@ -2,11 +2,24 @@
     $connect = mysqli_connect("localhost", "root", "", "plantshop");
     $query1 = "SELECT * FROM `plant_categories`";
     $plant_categories = mysqli_query($connect, $query1);
-    $query2 = "SELECT * FROM `plants`";
+    $query2 = "SELECT plants.id, plants.plant_categoires_id,plants.name,plants.description,plants.treatment,plants.image,plants.price, plant_categories.name AS category_name 
+                FROM plants 
+                LEFT JOIN plant_categories ON plants.plant_categoires_id = plant_categories.id;
+                ";
+    $plants = mysqli_query($connect, $query2);
+    if (isset($_POST['categories']) && count($_POST['categories']) > 0) {
+        // Przygotowanie podstawy zapytania
+        $query2 = "SELECT plants.id, plants.plant_categoires_id,plants.name,plants.description,plants.treatment,plants.image,plants.price, plant_categories.name AS category_name 
+                FROM plants 
+                LEFT JOIN plant_categories ON plants.plant_categoires_id = plant_categories.id WHERE ";
+        $conditions = [];
+        foreach ($_POST['categories'] as $category_id) {
+            $conditions[] = "plant_categoires_id = " . (int)$category_id;
+        }
+        $query2 .= implode(" OR ", $conditions);
+    }
     $plants = mysqli_query($connect,$query2);
-    
 ?>
-
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -37,12 +50,29 @@
                         <p class="fs-3 text-center"> Filtry</p>
                     </li>
                     <li class="list-group-item"> 
-                        <div class="d-flex flex-wrap">
-                            <?php
-                                while($row = $plant_categories->fetch_array()){
-                                    echo "<span class='badge text-bg-none border border-2 text-black m-1 fs-5'>". $row['name'] ."</span>";
-                                }
-                            ?>
+                        <div class="flex-wrap">
+                            <form action="search_page.php" method="post" id="categoriesForm">
+                                <?php
+                                    while ($row = $plant_categories->fetch_array()) {
+                                        // Sprawdzamy, czy kategoria została wybrana
+                                        if (isset($_POST['categories']) && in_array($row['id'], $_POST['categories'])) {
+                                            // Checkbox zaznaczony
+                                            echo "<input class='form-check-input' type='checkbox' name='categories[]' checked value='" . $row['id'] . "' id='category_" . $row['id'] . "' style='display:none;' onclick='toggleCategoryClass(" . $row['id'] . ")'>";
+                                            echo "<label class='form-check-label' for='category_" . $row['id'] . "'>";
+                                            echo "<span class='badge category-checked border border-2 m-1 fs-5' id='badge_" . $row['id'] . "'>" . $row['name'] . "</span>";
+                                            echo "</label>";
+                                        } else {
+                                            // Checkbox niezaznaczony
+                                            echo "<input class='form-check-input' type='checkbox' name='categories[]' value='" . $row['id'] . "' id='category_" . $row['id'] . "' style='display:none;' onclick='toggleCategoryClass(" . $row['id'] . ")'>";
+                                            echo "<label class='form-check-label' for='category_" . $row['id'] . "'>";
+                                            echo "<span class='badge category-unchecked border border-2 m-1 fs-5' id='badge_" . $row['id'] . "'>" . $row['name'] . "</span>";
+                                            echo "</label>";
+                                        }
+                                    }
+                                ?>
+                                <button type="submit" class="btn col-12">Szukaj</button>
+                            </form>
+
                         </div>
                     </li>
                    
@@ -52,20 +82,19 @@
                 <?php
                 while($row = $plants->fetch_array()){
                     ?>
-                    <!-- template -->
                     <div class="col-lg-3 col-md-4 col-sm-6 m-2">
                         <a href="plantView_page.php?id=<?php echo $row['id']; ?>" class="text-decoration-none text-dark">
                             <div class="card shadow-sm">
                                 <img src="../images/<?php echo $row['image']; ?>" class="card-img-top" alt="Plant image" style="width: 100%; height: 200px; object-fit: cover;">
                                 <div class="card-body">
-                                    <h5 class="card-title"><?php echo htmlspecialchars($row['name']); ?></h5>
-                                    <p class="card-text text-truncate" style="max-width: 100%;"><?php echo htmlspecialchars($row['description']); ?></p>
+                                    <h5 class="card-title"><?php echo ($row['name']); ?></h5>
+                                    <p class="card-text text-truncate" style="max-width: 100%;"><?php echo ($row['description']); ?></p>
+                                    <p><span class='badge category-checked border border-2 m-1 fs-5' ><?php echo $row['category_name']?> </span></p>
                                     <span class="text-success font-weight-bold"><?php echo number_format($row['price'], 2, ',', ' '); ?> PLN</span>
                                 </div>
                             </div>
                         </a>
                     </div>
-                <!-- template -->
                     <?php
                 }
                 ?>

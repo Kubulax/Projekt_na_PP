@@ -76,3 +76,20 @@ footer {
     text-align: center;
     margin-top: 2em;
 }
+.category-checked{
+    background-color: #4CAF50;
+    color: white
+    !important;
+    cursor:pointer;
+}
+.category-unchecked{
+    background-color: white;
+    color: black
+    !important;
+    cursor:pointer;
+}
+.category-checked:hover,.category-unchecked:hover{
+    background-color:#6ABC6D;
+    color: white
+    !important;
+}
