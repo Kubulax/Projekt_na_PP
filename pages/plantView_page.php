@@ -26,6 +26,7 @@
                 <li><a href="../index.php">Home</a></li>
                 <li><a href="search_page.php">Katalog Roślin</a></li>
                 <li><a href="contact_page.php">Kontakt</a></li>
+                <li><a href="pages/shopping_card.php">Koszyk</a></li>
             </ul>
         </nav>
     </header>
