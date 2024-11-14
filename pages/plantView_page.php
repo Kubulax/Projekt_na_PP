@@ -99,8 +99,8 @@
             </div>
             
             <form method="post">
-                <input type="number" name="quantity" class="form-control" />
-                <button name="add_to_cart" class="btn btn-primary">Dodaj do koszyka</button>
+                <input type="number" name="quantity" class="form-control" style="width: 150px;"/>
+                <button name="add_to_cart" class="btn btn-success">Dodaj do koszyka</button>
             </form>
             
 
