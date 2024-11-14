@@ -16,6 +16,7 @@
                 <li><a href="index.php">Home</a></li>
                 <li><a href="pages/search_page.php">Katalog Roślin</a></li>
                 <li><a href="pages/contact_page.php">Kontakt</a></li>
+                <li><a href="admin/admin-log-in-page.php">Zarządzaj</a></li>
             </ul>
         </nav>
     </header>
