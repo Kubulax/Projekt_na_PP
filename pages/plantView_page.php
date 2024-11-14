@@ -1,9 +1,47 @@
 <?php
+    session_start();   
      $connect = mysqli_connect("localhost", "root", "", "plantshop");
      $query1 = "SELECT * FROM `plants` WHERE ID = '". $_GET['id'] ."'";
      $plant = mysqli_query($connect, $query1)->fetch_array();
      $query2 = "SELECT * FROM `plant_categories` where id = '". $plant['plant_categoires_id'] ."'";
      $category = mysqli_query($connect, $query2)->fetch_array();
+
+
+
+    if (isset($_POST['add_to_cart'])) {
+        $productId = intval($_GET['id']);
+        $quantity = intval($_POST['quantity']);
+
+        if ($plant) {
+            $totalCost = $plant['price'] * $quantity;
+            
+            echo $totalCost;
+
+            $itemData = [
+                'product' => $plant['name'],
+                'quantity' => $quantity,
+                'totalCost' => $totalCost,
+                'id' => $productId
+            ];
+
+            //echo '<pre>';
+            //echo var_dump($itemData);
+            //echo '</pre>';
+
+            if (isset($_COOKIE["shoppingCart"])) {
+                $cookieData = stripslashes($_COOKIE["shoppingCart"]);
+                $shoppingBag = json_decode($cookieData, true);
+            } else {
+                $shoppingBag = [];
+            }
+
+            $shoppingBag[] = $itemData;
+
+            setcookie("shoppingCart", json_encode($shoppingBag), time() + (86400 * 30), "/");
+            header("Location: plantView_page.php?id=".$productId);
+        }
+    }
+
 ?>
 <!DOCTYPE html>
 <html lang="pl">
@@ -26,7 +64,6 @@
                 <li><a href="../index.php">Home</a></li>
                 <li><a href="search_page.php">Katalog Roślin</a></li>
                 <li><a href="contact_page.php">Kontakt</a></li>
-                <li><a href="pages/shopping_card.php">Koszyk</a></li>
             </ul>
         </nav>
     </header>
@@ -60,6 +97,13 @@
                 <p><?php echo $plant['treatment']?></p>
                 <p>Cena: <span class="text-success font-weight-bold"><?php echo number_format($plant['price'], 2, ',', ' '); ?> PLN</span></p>
             </div>
+            
+            <form method="post">
+                <input type="number" name="quantity" class="form-control" />
+                <button name="add_to_cart" class="btn btn-primary">Dodaj do koszyka</button>
+            </form>
+            
+
         </div>
 
         <!-- Możliwe inne sekcje, np. opinie użytkowników -->
