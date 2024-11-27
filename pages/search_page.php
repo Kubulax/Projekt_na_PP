@@ -86,7 +86,7 @@
                     ?>
                     <div class="col-lg-3 col-md-4 col-sm-6 m-2">
                         <a href="plantView_page.php?id=<?php echo $row['id']; ?>" class="text-decoration-none text-dark">
-                            <div class="card shadow-sm">
+                            <div class="card shadow-sm" style="min-height: 400px">
                                 <img src="../images/<?php echo $row['image']; ?>" class="card-img-top" alt="Plant image" style="width: 100%; height: 200px; object-fit: cover;">
                                 <div class="card-body">
                                     <h5 class="card-title"><?php echo ($row['name']); ?></h5>

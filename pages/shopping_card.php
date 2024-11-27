@@ -52,13 +52,16 @@
             if (isset($_COOKIE["shoppingCart"]) || !empty($shoppingBag)) {
                 $cookieData = stripslashes($_COOKIE["shoppingCart"]);
                 $shoppingBag = json_decode($cookieData, true);
-
-                    echo "<ul>";
+                    echo "<center>";
+                    echo "<ul style='list-style-type:none;'>";
                     foreach ($shoppingBag as $item) {
-                        echo "<li>{$item['product']} - Ilość: {$item['quantity']}, Koszt: " . number_format($item['totalCost'], 2) . " zł 
-                        <a href='shopping_card.php?delete={$item['id']}'>Usuń</a></li>";
+                        echo "<li class='border border-success rounded' style='width: 400px; margin-bottom: 5px; padding: 5px'>{$item['product']} - Ilość: {$item['quantity']}, Koszt: " . number_format($item['totalCost'], 2) . " zł 
+                        <a href='shopping_card.php?delete={$item['id']}'>
+                            <button class='btn btn-success'>Usuń</button>
+                        </a></li>";
                     }
                     echo "</ul>";
+                    echo "</center>";
             } else {
                 echo "<p>Twój koszyk jest pusty.</p>";
             }
@@ -68,7 +71,7 @@
             
     </section>
 
-    <section id="contact" style="height: 430px">
+    <section id="contact" style="min-height: 430px">
         <h2>Kontakt</h2>
         <p>Email: kontakt@sklepzroslinami.pl</p>
         <p>Telefon: 123 456 789</p>

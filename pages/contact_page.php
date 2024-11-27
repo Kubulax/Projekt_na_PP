@@ -25,7 +25,7 @@
         </nav>
     </header>
     
-    <section id="contact" style="height: 700px;">
+    <section id="contact" style="min-height: 700px;">
         <h2>Kontakt</h2>
         <p>Email: kontakt@sklepzroslinami.pl</p>
         <p>Telefon: 123 456 789</p>
