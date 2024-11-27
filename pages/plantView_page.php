@@ -1,47 +1,54 @@
 <?php
-    session_start();   
-     $connect = mysqli_connect("localhost", "root", "", "plantshop");
-     $query1 = "SELECT * FROM `plants` WHERE ID = '". $_GET['id'] ."'";
-     $plant = mysqli_query($connect, $query1)->fetch_array();
-     $query2 = "SELECT * FROM `plant_categories` where id = '". $plant['plant_categoires_id'] ."'";
-     $category = mysqli_query($connect, $query2)->fetch_array();
+session_start();   
+$connect = mysqli_connect("localhost", "root", "", "plantshop");
+$query1 = "SELECT * FROM `plants` WHERE ID = '". $_GET['id'] ."'";
+$plant = mysqli_query($connect, $query1)->fetch_array();
+$query2 = "SELECT * FROM `plant_categories` where id = '". $plant['plant_categoires_id'] ."'";
+$category = mysqli_query($connect, $query2)->fetch_array();
 
+if (isset($_POST['add_to_cart'])) {
+    $productId = intval($_GET['id']);
+    $quantity = intval($_POST['quantity']);
 
+    if ($plant) {
+        $totalCost = $plant['price'] * $quantity;
+        
+        echo $totalCost;
 
-    if (isset($_POST['add_to_cart'])) {
-        $productId = intval($_GET['id']);
-        $quantity = intval($_POST['quantity']);
+        $itemData = [
+            'product' => $plant['name'],
+            'quantity' => $quantity,
+            'totalCost' => $totalCost,
+            'id' => $productId
+        ];
 
-        if ($plant) {
-            $totalCost = $plant['price'] * $quantity;
-            
-            echo $totalCost;
-
-            $itemData = [
-                'product' => $plant['name'],
-                'quantity' => $quantity,
-                'totalCost' => $totalCost,
-                'id' => $productId
-            ];
-
-            //echo '<pre>';
-            //echo var_dump($itemData);
-            //echo '</pre>';
-
-            if (isset($_COOKIE["shoppingCart"])) {
-                $cookieData = stripslashes($_COOKIE["shoppingCart"]);
-                $shoppingBag = json_decode($cookieData, true);
-            } else {
-                $shoppingBag = [];
-            }
-
-            $shoppingBag[] = $itemData;
-
-            setcookie("shoppingCart", json_encode($shoppingBag), time() + (86400 * 30), "/");
-            header("Location: plantView_page.php?id=".$productId);
+        if (isset($_COOKIE["shoppingCart"])) {
+            $cookieData = stripslashes($_COOKIE["shoppingCart"]);
+            $shoppingBag = json_decode($cookieData, true);
+        } else {
+            $shoppingBag = [];
         }
-    }
 
+        $itemFound = false;
+
+        foreach ($shoppingBag as &$item) { 
+            if ($item['id'] == $productId) {
+                $item['quantity'] += $quantity; 
+                $item['totalCost'] += $totalCost; 
+                $itemFound = true; 
+                break; 
+            }
+        }
+
+        if (!$itemFound) {
+            $shoppingBag[] = $itemData;
+        }
+
+        setcookie("shoppingCart", json_encode($shoppingBag), time() + (86400 * 30), "/");
+        header("Location: plantView_page.php?id=".$productId);
+        exit; 
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="pl">
@@ -96,12 +103,13 @@
                 <h4>Jak traktować roślinę?</h4>
                 <p><?php echo $plant['treatment']?></p>
                 <p>Cena: <span class="text-success font-weight-bold"><?php echo number_format($plant['price'], 2, ',', ' '); ?> PLN</span></p>
+                <form method="post">
+                    <input type="number" name="quantity" class="form-control" min="1" placeholder="1" style="width: 150px;"/>
+                    <button name="add_to_cart" class="btn btn-success">Dodaj do koszyka</button>
+                </form>
             </div>
             
-            <form method="post">
-                <input type="number" name="quantity" class="form-control" style="width: 150px;"/>
-                <button name="add_to_cart" class="btn btn-success">Dodaj do koszyka</button>
-            </form>
+            
             
 
         </div>
