@@ -53,7 +53,7 @@
             $filteredDescription = htmlspecialchars($description, ENT_QUOTES);
             $filteredTreatment = htmlspecialchars($treatment, ENT_QUOTES);
             $filteredImage = htmlspecialchars($image, ENT_QUOTES);
-            $filterePrice = filter_var($price, FILTER_SANITIZE_NUMBER_FLOAT);
+            $filterePrice = htmlspecialchars($price, ENT_QUOTES);
 
             $query = "INSERT INTO `plants`(`plant_categoires_id`, `name`, `description`, `treatment`, `image`, `price`) VALUES (?,?,?,?,?,?)";
             $statement = $connect->prepare($query);
@@ -86,7 +86,7 @@
             $filteredDescription = htmlspecialchars($description, ENT_QUOTES);
             $filteredTreatment = htmlspecialchars($treatment, ENT_QUOTES);
             $filteredImage = htmlspecialchars($image, ENT_QUOTES);
-            $filterePrice = filter_var($price, FILTER_SANITIZE_NUMBER_FLOAT);
+            $filterePrice = htmlspecialchars($price, ENT_QUOTES);
 
             $query = "UPDATE `plants` SET `plant_categoires_id`= ?,`name`= ?,`description`= ?,`treatment`= ?,`image`= ?,`price`= ? WHERE id = ?";
             $statement = $connect->prepare($query);

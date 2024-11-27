@@ -10,7 +10,7 @@
     $image = $_FILES["image"];
     $price = $_POST["price"];
 
-    if(empty($name) || $name === null || $name === "" || empty($categoryId) || $categoryId === null || $categoryId === "" || empty($price) || $price === null || $price === "" || $price == 0)
+    if(empty($name) || $name === null || $name === "" || empty($categoryId) || $categoryId === null || $categoryId === "" || empty($price) || $price === null || $price === "" || $price == 0 || $price > 99999999.99)
     {
         echo 0;
         exit();

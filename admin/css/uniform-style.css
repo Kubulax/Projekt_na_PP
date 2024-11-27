@@ -1,82 +1,58 @@
 * {
   overflow-wrap: break-word !important;
 }
-body {
-  background-color: #F2F3F5 !important;
-  background-image: linear-gradient(to bottom, #0cec10, rgb(0, 172, 14), rgb(0, 70, 6)) !important;
-  background-position: center !important;
-  background-repeat: no-repeat !important;
-  min-height: 100vh !important;
-}
-
-footer {
-  margin-top: 110px !important;
-  height: 200px !important;
-  padding: 10px !important;
-}
-
-@media (max-width:480px) {
-  .dropdown-menu {
-    width:90%;
-  }
-  
-  .dropdown-menu > li > a {
-    white-space: normal;
-  }
-  
-}
 
 .ps-button{
   outline: none;  
   cursor: pointer;
-  background-color: #0cec10 !important;
-  border: 1px solid #0cec10 !important;
+  background-color: #4CAF50 !important;
+  border: 1px solid #4CAF50 !important;
   color: white !important;
 }
 .ps-button:hover{
-  background-color: #0dac10 !important;
-  border: 1px solid #0dac10 !important;
+  background-color: #3f9442 !important;
+  border: 1px solid #3f9442 !important;
 }
 .ps-button:active {
-  background-color: #0a7e0c !important;
-  border: 1px solid #0a7e0c !important;
+  background-color: #307233 !important;
+  border: 1px solid #307233 !important;
 }
 
 .ps-blue-button{
   outline: none;
   cursor: pointer;
-  background-color: #0ccaec !important;
-  border: 1px solid #0ccaec !important;
+  background-color: #4ca3af  !important;
+  border: 1px solid #4ca3af  !important;
   color: white !important;
 }
 .ps-blue-button:hover{
-  background-color: #0dacac !important;
-  border: 1px solid #0dacac !important;
+  background-color: #408a94  !important;
+  border: 1px solid #408a94 !important;
 }
 .ps-blue-button:active {
-  background-color: #0a767e !important;
-  border: 1px solid #0a767e !important;
+  background-color: #35727a  !important;
+  border: 1px solid #35727a  !important;
 }
 
 .ps-red-button{
   outline: none;
   cursor: pointer;
-  background-color: #ec0c0c !important;
-  border: 1px solid #ec0c0c !important;
+  background-color: #af4c4c !important;
+  border: 1px solid #af4c4c !important;
   color: white !important;
 }
 .ps-red-button:hover{
-  background-color: #ac0d0d !important;
-  border: 1px solid #ac0d0d !important;
+  background-color: #923f3f !important;
+  border: 1px solid #923f3f !important;
 }
 .ps-red-button:active {
-  background-color: #7e0a0a !important;
-  border: 1px solid #7e0a0a !important;
+  background-color: #773333 !important;
+  border: 1px solid #773333 !important;
 }
 
 .ps-label{
-  background-color: #0cec10 !important;
-  border: 1px solid #0cec10 !important;
+  background-color: #4CAF50 !important;
+  border: 1px solid #4CAF50 !important;
   color: white !important;
 }
 
@@ -85,22 +61,22 @@ footer {
   cursor: pointer;
 }
 .ps-card:hover{
-  box-shadow: 0px 0px 10px #0cec10 !important;
+  box-shadow: 0px 0px 10px #4CAF50 !important;
   transform: translateY(-5px) !important;
 }
 
 .form-control:focus{
-  box-shadow: 0px 0px 5px #0cec10 !important;
-  border-color: #0cec10 !important;
+  box-shadow: 0px 0px 5px #4CAF50 !important;
+  border-color: #4CAF50 !important;
 }
 
 .form-select:focus{
-  box-shadow: 0px 0px 5px #0cec10 !important;
-  border-color: #0cec10 !important;
+  box-shadow: 0px 0px 5px #4CAF50 !important;
+  border-color: #4CAF50 !important;
 }
 
 textarea:focus{
-  border-color: #0cec10 !important;
+  border-color: #4CAF50 !important;
 }
 
 .login-label{

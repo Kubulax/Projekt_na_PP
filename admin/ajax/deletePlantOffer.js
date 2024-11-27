@@ -6,6 +6,7 @@ function deletePlantOffer() {
         $(".is-invalid").on("change", function() {
             $(this).removeClass("is-invalid"); 
         });
+        window.scrollTo(0, 0);
         return;
     }
     if (confirm("Czy na pewno chcesz usunąć wybraną ofertę?") == true) {
@@ -16,7 +17,8 @@ function deletePlantOffer() {
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
                 alert("Usunięto ofertę");
-               location.reload();
+                window.scrollTo(0, 0);
+                location.reload();      
             }
         };
         xmlhttp.open("GET", "ajax/deletePlantOffer.php?id=" + id + "&imageName=" + imageName, true);

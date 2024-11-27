@@ -10,6 +10,7 @@ $("form[name='editPlantOfferForm']").on("submit", function(ev) {
         $(".is-invalid").on("change", function() {
             $(this).removeClass("is-invalid"); 
         });
+        window.scrollTo(0, 0);
         return;
     }
 
@@ -33,6 +34,13 @@ $("form[name='editPlantOfferForm']").on("submit", function(ev) {
         $("#validationFeedback_inputPrice").text("Pole ceny rośliny nie może być puste lub równe zero.");
         badData = true;
     }
+
+    if(!$("input[name='price']").val() || $("input[name='price']").val() > 99999999.99)
+    {
+        $("input[name='price']").addClass("is-invalid");
+        $("#validationFeedback_inputPrice").text("Podana cena jest za duża.");
+        badData = true;
+    }
     
     $(".is-invalid").on("keydown", function() {
         $(this).removeClass("is-invalid"); 
@@ -44,6 +52,7 @@ $("form[name='editPlantOfferForm']").on("submit", function(ev) {
 
     if(badData)
     {
+        window.scrollTo(0, 0);
         return;
     }
   
@@ -57,7 +66,8 @@ $("form[name='editPlantOfferForm']").on("submit", function(ev) {
         if(response * 1)
         {
             alert("Zedytowano ofertę.");
-            location.reload();
+            window.scrollTo(0, 0);
+            location.reload();    
         }
         else
         {
