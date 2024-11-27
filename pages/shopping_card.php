@@ -16,7 +16,7 @@
                 <li><a href="../index.php">Home</a></li>
                 <li><a href="search_page.php">Katalog Roślin</a></li>
                 <li><a href="contact_page.php">Kontakt</a></li>
-                <li><a href="pages/shopping_card.php">Koszyk</a></li>
+                <li><a href="shopping_card.php">Koszyk</a></li>
                 <li><a href="../admin/admin-log-in-page.php">Zarządzaj</a></li>
             </ul>
         </nav>
@@ -68,7 +68,7 @@
             
     </section>
 
-    <section id="contact">
+    <section id="contact" style="height: 430px">
         <h2>Kontakt</h2>
         <p>Email: kontakt@sklepzroslinami.pl</p>
         <p>Telefon: 123 456 789</p>
